@@ -2,21 +2,26 @@ package com.fenetre;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class Panneau extends JPanel implements MouseMotionListener{
+public class Panneau extends JPanel implements MouseMotionListener
+{
 	private int posX = 0;
 	private int posY = 0;
 	private String forme = "Carre";
 	private String color = "Vert";
 	private int drawSize = 20; 
 	private Graphics g;
-	ArrayList<Point> listePoints = new ArrayList<Point>();
+	private ArrayList<Point> listePoints = new ArrayList<Point>();
 	private boolean start = false;
+	
 	
 	//Methode de JPanel appel� � chaque redimensionnement
 	public void paintComponent(Graphics g)
@@ -34,6 +39,13 @@ public class Panneau extends JPanel implements MouseMotionListener{
 		 setPosX(e.getX());
 		 setPosY(e.getY());
 		 start = true;
+		 repaint(); 
+	 }
+	 
+	 public void effacer()
+	 {
+		 listePoints.clear();
+		 start = false;
 		 repaint();
 	 }
 	
@@ -41,7 +53,7 @@ public class Panneau extends JPanel implements MouseMotionListener{
 	{      
 		if(start)
 		{	
-			Point newP = new Point(drawSize, this.getPosX(), this.getPosY(), this.getForme(), color);
+			Point newP = new Point(drawSize, this.getPosX(), this.getPosY(), this.getForme(), this.getColor());
 			listePoints.add(newP);
 		}
 	
@@ -59,16 +71,6 @@ public class Panneau extends JPanel implements MouseMotionListener{
 			else if(p.forme.equals("Carre"))
 				g.fillRect(p.posX, p.posY, p.size, p.size); 
 		}
-		
-		/*
-		if(this.forme.equals("Rond"))
-		{
-			g.fillOval(posX, posY, drawSize, drawSize); 
-		}
-	    if(this.forme.equals("Carre"))
-	    {
-	      g.fillRect(posX, posY, drawSize, drawSize);
-	    }*/
 	 }
 	
 	//Accesseurs
@@ -87,6 +89,11 @@ public class Panneau extends JPanel implements MouseMotionListener{
 		return this.forme;
 	}
 	
+	public String getColor()
+	{
+		return this.color;
+	}
+	
 	//Mutateurs
 	public void setPosX(int posX)
 	{
@@ -101,6 +108,11 @@ public class Panneau extends JPanel implements MouseMotionListener{
 	public void setForme(String forme)
 	{
 		this.forme = forme;
+	}
+	
+	public void setColor (String color)
+	{
+		this.color = color;
 	}
 	
 }
