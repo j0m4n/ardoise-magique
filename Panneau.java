@@ -2,16 +2,14 @@ package com.fenetre;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class Panneau extends JPanel implements MouseMotionListener
+public class Panneau extends JPanel /*implements MouseMotionListener*/
 {
 	private int posX = 0;
 	private int posY = 0;
@@ -22,6 +20,35 @@ public class Panneau extends JPanel implements MouseMotionListener
 	private ArrayList<Point> listePoints = new ArrayList<Point>();
 	private boolean start = false;
 	
+	public Panneau()
+	{
+		//Cas d'un seul click
+		this.addMouseListener(new MouseAdapter() 
+		{
+			public void mousePressed(MouseEvent e)
+			{
+				 setPosX(e.getX());
+				 setPosY(e.getY());
+				 start = true;
+				 repaint();	
+			}
+		});
+		
+		//Cas d'un click prolongé où l'on déplace la souris
+		this.addMouseMotionListener(new MouseMotionListener() {
+
+			@Override
+			public void mouseMoved(MouseEvent e) {}
+			
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				 setPosX(e.getX());
+				 setPosY(e.getY());
+				 start = true;
+				 repaint(); 
+			}
+		});
+	}
 	
 	//Methode de JPanel appel� � chaque redimensionnement
 	public void paintComponent(Graphics g)
@@ -29,18 +56,7 @@ public class Panneau extends JPanel implements MouseMotionListener
 	    g.setColor(Color.white);
 	    g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		this.draw(g);
-	    addMouseMotionListener(this);
 	}
-	
-	 public void mouseMoved(MouseEvent e){}
-	 
-	 public void mouseDragged(MouseEvent e)
-	 {
-		 setPosX(e.getX());
-		 setPosY(e.getY());
-		 start = true;
-		 repaint(); 
-	 }
 	 
 	 public void effacer()
 	 {

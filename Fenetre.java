@@ -51,7 +51,7 @@ public class Fenetre extends JFrame {
 	
 	public Fenetre (){
 		
-		this.setSize(600,300);
+		this.setSize(900,600);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 	    container.setLayout(new BorderLayout());
@@ -60,7 +60,6 @@ public class Fenetre extends JFrame {
 	    this.initBarreOutils();
 	    
 	    //ajoute le panneau contenant les dessins
-	    //panneau.setBackground(Color.red);
 	    container.add(panneau, BorderLayout.CENTER);
 	    container.add(barreOutils, BorderLayout.NORTH); 
 	    this.setContentPane(container);
